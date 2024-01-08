@@ -1,0 +1,75 @@
+@import url("https://fonts.googleapis.com/css2?family=Fuzzy+Bubbles&display=swap");
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Fuzzy Bubbles", sans-serif;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+header,
+footer,
+main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+/* Header */
+header {
+  padding: 1rem 0;
+}
+
+/* Main */
+main {
+  margin-top: 15vh;
+  font-size: 1.5rem;
+  flex: 1;
+}
+
+.main-container {
+  min-width: 25vw;
+}
+
+.selections-sec {
+  display: flex;
+  justify-content: space-between;
+}
+.selections-sec div {
+  text-align: center;
+}
+
+.choose-sec {
+  margin-top: 3rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.weapon-sec {
+  margin: 2.5rem 0;
+  display: flex;
+  justify-content: space-evenly;
+  gap: 1rem;
+}
+.weapon-sec button {
+  font-size: 3.5rem;
+  width: 6rem;
+  height: 6rem;
+  text-align: center;
+  background-color: rgb(170, 170, 170);
+  border: none;
+  border-radius: 10px;
+}
+.weapon-sec button:hover {
+  background-color: rgb(160, 160, 160);
+  cursor: pointer;
+}
