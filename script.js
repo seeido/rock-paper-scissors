@@ -1,8 +1,9 @@
 let playerScore = 0;
 let computerScore = 0;
 
-// function: get computer's random selection
 let selections = ["Rock", "Paper", "Scissors"];
+
+// function: get computer's random selection
 
 function getComputerSelection() {
   let selection = Math.floor(Math.random() * 3);
@@ -10,6 +11,7 @@ function getComputerSelection() {
 }
 
 // function: listen for player selection > call runRound function
+
 let selectionBtns = [
   document.querySelector("#rock"),
   document.querySelector("#paper"),
@@ -49,7 +51,7 @@ function runRound(playerSelection) {
   }
 }
 
-// function: check for round status and add points accordingly
+// necessary element definitions
 
 const playerSelectionEmoji = document.querySelector("#p-selection");
 const computerSelectionEmoji = document.querySelector("#c-selection");
@@ -58,14 +60,26 @@ const computerScoreText = document.querySelector("#c-score");
 const roundInfo = document.querySelector("#choose-sec").firstElementChild;
 const roundMessage = document.querySelector("#choose-sec").lastElementChild;
 
+const popup = document.querySelector("#popup");
+const popupText = document.querySelector("#popup-round-status");
+const playagainBtn = document.querySelector("#play-again-btn");
+const overlay = document.querySelector("#overlay");
+
 let selectionEmojis = ["✊", "✋", "✌"];
 
+// function: check for round status and add points accordingly + call showPopup() function if someone won
+
 function checkForWinner(roundResult, playerSelection, computerSelection) {
-  if (playerScore >= 5 || computerScore >= 5) {
-    console.log("Round ended");
+  //if someone won call showPopup() function
+  if (playerScore >= 5) {
+    showPopup("player");
+    return;
+  } else if (computerScore >= 5) {
+    showPopup("computer");
     return;
   }
 
+  //change selectoin emojis based on selections
   const pSelectionEmoji = selectionEmojis[selections.indexOf(playerSelection)];
   const cSelectionEmoji =
     selectionEmojis[selections.indexOf(computerSelection)];
@@ -73,6 +87,7 @@ function checkForWinner(roundResult, playerSelection, computerSelection) {
   playerSelectionEmoji.textContent = pSelectionEmoji;
   computerSelectionEmoji.textContent = cSelectionEmoji;
 
+  //declare winner and increase points accordingly
   switch (roundResult) {
     case "tie":
       roundInfo.textContent = "It's a tie!";
@@ -92,8 +107,45 @@ function checkForWinner(roundResult, playerSelection, computerSelection) {
       break;
   }
 
-  if (playerScore >= 5 || computerScore >= 5) {
-    console.log("Round ended");
+  //if someone won call showPopup() function
+  if (playerScore >= 5) {
+    showPopup("player");
+    return;
+  } else if (computerScore >= 5) {
+    showPopup("computer");
     return;
   }
 }
+
+// function: shows play again popup
+
+function showPopup(winner) {
+  switch (winner) {
+    case "player":
+      popupText.textContent = "You won!";
+      break;
+    case "computer":
+      popupText.textContent = "You lost!";
+      break;
+  }
+  popup.classList.add("active");
+  overlay.classList.add("active");
+}
+//close popup when click outside
+overlay.addEventListener("click", () => {
+  popup.classList.remove("active");
+  overlay.classList.remove("active");
+});
+//reset game when play again button is clicked
+playagainBtn.addEventListener("click", () => {
+  popup.classList.remove("active");
+  overlay.classList.remove("active");
+  playerScore = 0;
+  computerScore = 0;
+
+  playerScoreText.textContent = `Player: ${playerScore}`;
+  computerScoreText.textContent = `Computer: ${computerScore}`;
+
+  roundInfo.textContent = "Choose a weapon";
+  roundMessage.textContent = `First of 5 wins!`;
+});
